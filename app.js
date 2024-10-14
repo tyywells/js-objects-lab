@@ -272,3 +272,45 @@ console.log('Exercise 17 result:', game.party);
 
 //this is a compare function where the input two elements and the function '=>' returns the higher value first
 //this continues for all of the elements in the array that is being referenced
+/*
+
+Exercise 18
+Add a new property to the `game` object called `collection` and initialize its value to an empty array.
+
+Copy the `catchPokemon` method you wrote in Exercise Twelve and paste it below. Modify it so that:
+  - Ensure that no more than six Pokemon can be in the party at any time. 
+    Excess Pokemon should be placed in the `game.collection` array.
+  - It's up to you how to distribute Pokemon in a situation where more than six 
+    would be placed into the `game.party` array.
+
+Again, for this exercise, it's okay to have a negative number of pokeballs.
+
+After updating the method, use it by calling it and passing in a pokemon object of your choice from the `pokemon` data to catch it.
+
+Also, log the `game.items` array to confirm that the pokeball quantity is being decremented.
+
+Solve Exercise 18 here:
+*/
+
+game.collection = [];
+console.log(game.collection);
+
+console.log(game.party);
+game.catchPokemon = function(pokemonObj) {
+ game.items[1].quantity -=1
+  if(game.party<6) {
+      game.party.push(pokemonObj)
+ } else {
+  game.collection.push(pokemonObj)
+ };
+};
+game.catchPokemon(pokemon[107]);
+console.log(game.party)
+console.log(game.items)
+game.catchPokemon(pokemon[108])
+console.log(game.party)
+console.log(game.collection)
+console.log(game.items)
+// while the catchPokemon function does as intended with added pokemone to the party or collection
+//it appears the function is not decrementing the quantity of my pokeballs each time so I will 
+//have to figure out where in my code that is going wrong
