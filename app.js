@@ -2,38 +2,38 @@
 //const pokemon = require('./data.js')
 import pokemon from "./data.js"
 const game = {
-    party: [],
-    gyms: [
-      { location: "Pewter City", completed: false, difficulty: 1 },
-      { location: "Cerulean City", completed: false, difficulty: 2 },
-      { location: "Vermilion City", completed: false, difficulty: 3 },
-      { location: "Celadon City", completed: false, difficulty: 4 },
-      { location: "Fuchsia City", completed: false, difficulty: 5 },
-      { location: "Saffron City", completed: false, difficulty: 6 },
-      { location: "Cinnabar Island", completed: false, difficulty: 7 },
-      { location: "Viridian City", completed: false, difficulty: 8 },
-    ],
-    items: [
-      { name: "potion", quantity: 4 },
-      { name: "pokeball", quantity: 8 },
-      { name: "rare candy", quantity: 99 },
-    ],
-  }
- //Exercise 1
- // console.dir(pokemon, { maxArrayLength: null })
-console.log("Exercise 1", pokemon [58].name);
+  party: [],
+  gyms: [
+    { location: "Pewter City", completed: false, difficulty: 1 },
+    { location: "Cerulean City", completed: false, difficulty: 2 },
+    { location: "Vermilion City", completed: false, difficulty: 3 },
+    { location: "Celadon City", completed: false, difficulty: 4 },
+    { location: "Fuchsia City", completed: false, difficulty: 5 },
+    { location: "Saffron City", completed: false, difficulty: 6 },
+    { location: "Cinnabar Island", completed: false, difficulty: 7 },
+    { location: "Viridian City", completed: false, difficulty: 8 },
+  ],
+  items: [
+    { name: "potion", quantity: 4 },
+    { name: "pokeball", quantity: 8 },
+    { name: "rare candy", quantity: 99 },
+  ],
+}
+//Exercise 1
+// console.dir(pokemon, { maxArrayLength: null })
+console.log("Exercise 1", pokemon[58].name);
 
 //Exercise 2
 //console.log(game);
 
 //Exercise 3
 game.difficulty = 'Med';
-console.log(game, 'Exercise 3');
+console.log('Exercise 3', game);
 
 //find a starter from the pokemon object
 let starters = [];
 pokemon.forEach(element => {
-  if(element.starter === true) [
+  if (element.starter === true) [
     starters.push(element)
   ]
 });
@@ -61,10 +61,10 @@ Exercise 5
 
 Solve Exercise 5 here:
 */
- game.party.push(pokemon[148], pokemon[93], pokemon[34]);
- console.log(game.party, 'Exercise 5: adding more pokemon to party')
+game.party.push(pokemon[148], pokemon[93], pokemon[34]);
+console.log(game.party, 'Exercise 5: adding more pokemon to party')
 
- /*
+/*
 Exercise 6
 1. Set the `completed` property to true for gyms with a difficulty below 3.
 2. Think about how you'd loop through the `gyms` array to check and update the `completed` property.
@@ -73,11 +73,11 @@ Exercise 6
 Solve Exercise 6 here:
 */
 game.gyms.forEach(gym => {
- if(gym.difficulty < 3) [
-  gym.completed = true
- ]
+  if (gym.difficulty < 3) [
+    gym.completed = true
+  ]
 });
-console.log('Exercise 6 resul:', game.gyms)
+console.log('Exercise 6 result:', game.gyms)
 
 /*
 Exercise 7
@@ -105,11 +105,16 @@ Exercise 8
 
 Solve Exercise 8 here:
 */
+//fix it so it only says exercise 8 once
+//create an array called names to push just the names of each pokemon object
+//may need to use JSON.stringify
 
-//console.log(game.party)
-game.party.forEach(pokemon => {
-  console.log('Exercise 8 result:', pokemon)
+console.log('Exercise 8 result:')
+game.party.forEach(element => {
+console.log(element.name)
 });
+console.log(game.party)
+
 
 /*
 Exercise 9
@@ -134,7 +139,7 @@ After writing this method, call it and pass in a Pokemon object of your choice f
 
 Solve Exercise 10 here:
 */
-game.catchPokemon = function(pokemonObj) {
+game.catchPokemon = function (pokemonObj) {
   game.party.push(pokemonObj)
 }
 
@@ -155,28 +160,40 @@ Solve Exercise 11 here:
 */
 // console.log(game.items[1])
 
-game.catchPokemon = function(pokemonObj) {
- game.party.push(pokemonObj);
-game.items[1].quantity -= 1 
-};
+// game.catchPokemon = function(pokemonObj) {
+//  game.party.push(pokemonObj);
+// game.items[1].quantity -= 1 
+// };
+
+game.catchPokemon = function (pokemonObj) {
+  game.party.push(pokemonObj);
+  // console.log(game.items, "****")
+  game.items.forEach((element, index) => {
+    // console.log(element.name, "######")
+    if(element.name === "pokeball") {
+      // console.log("found it")
+      element.quantity--;
+    }
+  }) 
+}
+// console.log(game.items)
 
 game.catchPokemon(pokemon[145]);
- console.log('Exercise 11 result:', game.items);
+console.log('Exercise 11 result:', game.items);
 
- /*
+/*
 Exercise 12
 1. Similar to Exercise 6, now complete gyms with a difficulty below 6. How will you approach this?
- (change the value of `complete` in the qualifying objects from false to true).
+(change the value of `complete` in the qualifying objects from false to true).
 
 Solve Exercise 12 here:
 */
-
+console.log("Exercise 12 result:")
 game.gyms.forEach(gym => {
-  if(gym.difficulty < 6) [
-   gym.completed = true
+  if (gym.difficulty < 6) [
+    gym.completed = true
   ]
- });
- console.log("Exercise 12 result:", game.gyms);
+});
 
 /*
 Exercise 13
@@ -201,30 +218,37 @@ For example, if five gym objects have a value of `true` on their `completed` pro
 Solve Exercise 13 here:
 */
 
-const gymTally = {
-  'completed': 0,
-  'incomplete': 0,
+game.gymstatus = function() {
+  const gymTally = {
+    'completed': 0,
+    'incomplete': 0,
+  }
+  game.gyms.forEach(difficulty => {
+    if (difficulty.completed === true) {
+      gymTally.completed += 1
+    } else {
+      gymTally.incomplete += 1
+    }
+  });
+  console.log('Exercise 13 result:', gymTally)
 }
-game.gyms.forEach(difficulty => {
-  if (difficulty.completed===true) {
-    gymTally.completed += 1
-  } else { 
-    gymTally.incomplete +=1
-  }});
-  console.log("Exercise 13 result:", gymTally);
+game.gymstatus()
 
-  /*
+
+
+
+/*
 Exercise 14
 1. Add a `partyCount` method to `game` that counts the number of Pokémon in your party.
 
 This method should:
-  - Not accept any arguments.
-  - Count the number of Pokemon in the party.
-  - return the found number of Pokemon in the party.
+- Not accept any arguments.
+- Count the number of Pokemon in the party.
+- return the found number of Pokemon in the party.
 
 Solve Exercise 14 here:
 */
-game.partyCount = function() {
+game.partyCount = function () {
   return game.party.length;
 };
 console.log("Exercise 14 result:", game.partyCount());
@@ -237,11 +261,11 @@ Exercise 15
 Solve Exercise 15 here:
 */
 game.gyms.forEach(gym => {
-  if (gym.difficulty <8) [
-    gym.completed =true
+  if (gym.difficulty < 8) [
+    gym.completed = true
   ]
 });
-//console.log('Exercise 15 result:', game.gyms)
+console.log('Exercise 15 result:', game.gyms)
 
 /*
 Exercise 16
@@ -256,7 +280,7 @@ console.log('Exercise 16 result:', game)
 
 
 
-//level up exercises
+// ****************level up exercises****************
 
 /*
 Exercise 17
@@ -291,26 +315,71 @@ Also, log the `game.items` array to confirm that the pokeball quantity is being 
 
 Solve Exercise 18 here:
 */
-
+console.log('Exercise 18 result:')
 game.collection = [];
-console.log(game.collection);
+// console.log(game.collection);
+// console.log(game.party);
 
-console.log(game.party);
-game.catchPokemon = function(pokemonObj) {
- game.items[1].quantity -=1
-  if(game.party<6) {
-      game.party.push(pokemonObj)
- } else {
-  game.collection.push(pokemonObj)
- };
-};
+game.catchPokemon = function (pokemonObj) {
+  if (game.partycount >= 5) {
+    game.party.push(pokemonObj);
+  } else {
+    game.collection.push(pokemonObj)
+  }
+  };
+  // game.party.push(pokemonObj);
+  // console.log(game.items, "****")
+  game.items.forEach((element, index) => {
+    // console.log(element.name, "######")
+    if(element.name === "pokeball") {
+      // console.log("found it")
+      element.quantity--;
+    }
+  });
+
 game.catchPokemon(pokemon[107]);
-console.log(game.party)
-console.log(game.items)
-game.catchPokemon(pokemon[108])
 console.log(game.party)
 console.log(game.collection)
 console.log(game.items)
-// while the catchPokemon function does as intended with added pokemone to the party or collection
-//it appears the function is not decrementing the quantity of my pokeballs each time so I will 
-//have to figure out where in my code that is going wrong
+
+// game.catchPokemon(pokemon[108])
+// console.log(game.party)
+// console.log(game.collection)
+// console.log(game.items)
+// ^^^this was me confirming my catchPokemon method continued to work after catching another pokemon
+
+/*
+Exercise 19
+Copy the `catchPokemon` method that you just wrote above, and paste it below. The time has come to make it so that we cannot catch a Pokemon when we do not have any pokeballs to catch it with. 
+
+Modify the method so that if there are no pokeballs a message will be displayed that there are not enough pokeballs to catch the desired Pokemon.
+
+Also, ensure that the Pokemon isn't added to the `game.party` or the `game.collection`.
+
+Solve Exercise 19 here:
+*/
+
+game.items[1].quantity = 0
+//   console.log(game.items[1])
+
+game.catchPokemon = function (pokemonObj) {
+  if (game.items[1].quantity <= 0) {
+    console.log('There are not enough pokeballs to catch the desired Pokemon');
+    return; 
+  } /*this took me so long to realize that if i do not add "return" after this and 
+  placed it before the rest of the conditions, the rest of the conditions will still
+  run. by using "return" it stop the rest of the conditions from running if the previous
+  condition is met
+  */
+
+  if (game.partycount <= 5) {
+    game.party.push(pokemonObj);
+  } else {
+    game.collection.push(pokemonObj)
+  } 
+  };
+
+  game.catchPokemon(pokemon[86])
+
+
+
