@@ -358,6 +358,8 @@ Also, ensure that the Pokemon isn't added to the `game.party` or the `game.colle
 
 Solve Exercise 19 here:
 */
+console.log('Exercise 19 result:')
+
 
 game.items[1].quantity = 0
 //   console.log(game.items[1])
